@@ -1,0 +1,28 @@
+.note-card {
+  background: var(--white);
+  position: relative;
+  width: 50%;
+  padding: 0.5rem 0.5rem 2rem;
+  margin: 0 auto;
+}
+.card-input {
+  outline: 0;
+  border: 0;
+  resize: none;
+}
+.card-input:empty::before {
+  color: var(--light-gray);
+  content: "Take a note";
+}
+.position-absolute {
+  position: absolute;
+}
+.fa-thumbtack {
+  top: 4px;
+  right: 4px;
+}
+.btn-container {
+  bottom: 4px;
+  right: 4px;
+  justify-content: end;
+}
