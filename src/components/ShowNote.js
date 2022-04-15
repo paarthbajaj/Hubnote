@@ -1,8 +1,7 @@
-import { useNotes } from "../backend/context/NotesContext";
+import { useNotes } from "../context/NotesContext";
 
-const ShowNote = () => {
+export const ShowNote = () => {
   const { notesList } = useNotes();
-  console.log(notesList);
   return (
     <div className="notes-list flex-row mt-1 pb-1 g-1">
       {notesList &&
@@ -15,4 +14,3 @@ const ShowNote = () => {
     </div>
   );
 };
-export default ShowNote;

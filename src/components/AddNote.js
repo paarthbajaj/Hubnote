@@ -1,10 +1,9 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "./NoteCard.css";
-import { useNotes } from "../backend/context/NotesContext";
+import { useNotes } from "../context/NotesContext";
 
-const AddNote = () => {
+export const AddNote = () => {
   const { encodedToken, setCounter } = useNotes();
   const [noteContent, setNoteContent] = useState({
     title: "",
@@ -22,7 +21,6 @@ const AddNote = () => {
   const saveClickHandler = async () => {
     setNoteContent((i) => ({ ...i, title: "", body: "" }));
     setCounter((counter) => counter + 1);
-    console.log(noteContent);
     try {
       const noteRes = await axios.post(
         "/api/notes",
@@ -65,5 +63,3 @@ const AddNote = () => {
     </div>
   );
 };
-
-export default AddNote;

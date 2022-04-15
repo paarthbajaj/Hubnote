@@ -4,7 +4,15 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { makeServer } from "./server";
-import { NotesContextProvider } from "./backend/context/NotesContext";
+import { NotesContextProvider } from "./context/NotesContext";
+
+export { AddNote } from "./components/AddNote";
+export { Navbar } from "./components/Navbar";
+export { Searchbar } from "./components/Searchbar";
+export { ShowNote } from "./components/ShowNote";
+export { Sidebar } from "./components/Sidebar";
+export { Signin } from "./components/Signin";
+export { Signup } from "./components/Signup";
 
 // Call make Server
 makeServer();

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Auth.css";
 import { users } from "../backend/db/users";
 
-const Signin = () => {
+export const Signin = () => {
   const signinHandler = async () => {
     const data = await axios.post("/api/auth/login", {
       email: users[0].email,
@@ -64,4 +64,3 @@ const Signin = () => {
     </div>
   );
 };
-export default Signin;

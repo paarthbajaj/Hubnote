@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <header className="app-header">
       <nav className="navbar bg-white flex-row align-center">
@@ -14,5 +14,3 @@ const Navbar = () => {
     </header>
   );
 };
-
-export default Navbar;

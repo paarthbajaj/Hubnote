@@ -1,5 +1,5 @@
 import "./Auth.css";
-const Signup = () => {
+export const Signup = () => {
   return (
     <div className="signin-page">
       <img
@@ -66,4 +66,3 @@ const Signup = () => {
     </div>
   );
 };
-export default Signup;
