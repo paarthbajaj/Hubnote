@@ -21,7 +21,8 @@
   grid-auto-flow: row;
   grid-template-areas:
     "sidebar searchbar"
-    "sidebar note-card";
+    "sidebar note-card"
+    "sidebar notes-list";
 }
 
 .sidebar {
@@ -35,7 +36,17 @@
 .note-card {
   grid-area: note-card;
 }
-
+.notes-list {
+  grid-area: notes-list;
+}
+.app-pri-btn {
+  padding: 4px 8px;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  background-color: var(--green);
+  border: 0;
+  color: var(--white);
+}
 .App {
   background: #ebebeb;
   min-height: 90vh;
