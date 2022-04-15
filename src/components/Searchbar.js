@@ -1,7 +1,7 @@
 import React from "react";
 import "./Searchbar.css";
 
-const Searchbar = () => {
+export const Searchbar = () => {
   return (
     <div className="searchbar">
       <form className="searchbar-form flex-row m-radius">
@@ -16,5 +16,3 @@ const Searchbar = () => {
     </div>
   );
 };
-
-export default Searchbar;

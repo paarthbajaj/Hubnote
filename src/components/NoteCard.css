@@ -5,6 +5,19 @@
   padding: 0.5rem 0.5rem 2rem;
   margin: 0 auto;
 }
+.show-note {
+  background: var(--white);
+  padding: 0.5rem;
+  box-shadow: 3px 3px 5px rgb(0 0 0 / 30%);
+  width: 250px;
+}
+.show-note div {
+  overflow: hidden;
+  max-height: 200px;
+}
+.notes-list {
+  flex-wrap: wrap;
+}
 .card-input {
   outline: 0;
   border: 0;
