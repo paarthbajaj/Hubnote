@@ -6,6 +6,8 @@ import { HomePage } from "./pages/HomePage";
 // import Signup from "./components/Signup";
 import { Navbar, Signin, Signup } from "../src/index";
 import MockmanEs from "mockman-js";
+import { TrashPage } from "./pages/TrashPage";
+import { ArchivePage } from "./pages/ArchivePage";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/archive" element={<ArchivePage />} />
+        <Route path="/trash" element={<TrashPage />} />
         <Route path="/mock" element={<MockmanEs />} />
       </Routes>
     </div>
