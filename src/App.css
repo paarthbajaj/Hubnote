@@ -19,10 +19,18 @@
   grid-template-rows: 0.3fr 1.7fr;
   gap: 0px 0px;
   grid-auto-flow: row;
+}
+.home-page {
   grid-template-areas:
     "sidebar searchbar"
     "sidebar note-card"
     "sidebar notes-list";
+}
+.trash-page {
+  grid-template-areas: "sidebar notes-list";
+}
+.archive-page {
+  grid-template-areas: "sidebar notes-list";
 }
 
 .sidebar {

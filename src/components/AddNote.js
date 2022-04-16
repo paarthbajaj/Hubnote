@@ -4,11 +4,7 @@ import "./NoteCard.css";
 import { useNotes } from "../context/NotesContext";
 
 export const AddNote = () => {
-  const { encodedToken, setCounter } = useNotes();
-  const [noteContent, setNoteContent] = useState({
-    title: "",
-    body: "",
-  });
+  const { encodedToken, setCounter, noteContent, setNoteContent } = useNotes();
   const [txtareaHeight, setTxtareaHeight] = useState(1);
 
   const addCardTitle = (e) => {
@@ -20,6 +16,7 @@ export const AddNote = () => {
   };
   const saveClickHandler = async () => {
     setNoteContent((i) => ({ ...i, title: "", body: "" }));
+    setTxtareaHeight(() => 1);
     setCounter((counter) => counter + 1);
     try {
       const noteRes = await axios.post(
