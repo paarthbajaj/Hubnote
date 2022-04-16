@@ -6,7 +6,7 @@ import { Sidebar, Searchbar, AddNote, ShowNote } from "../index";
 
 export const HomePage = () => {
   return (
-    <div className="app-container pt-1">
+    <div className="app-container home-page pt-1">
       <Sidebar />
       <Searchbar />
       <AddNote />

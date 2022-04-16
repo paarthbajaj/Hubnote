@@ -5,7 +5,7 @@ export const ArchivePage = () => {
   const { archivedNotesList } = useNotes();
 
   return (
-    <div className="archive-container pt-1">
+    <div className="app-container archive-page pt-1">
       {console.log(archivedNotesList)}
       <Sidebar />
       <div className="notes-list flex-row mt-1 pb-1 g-1">
