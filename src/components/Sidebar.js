@@ -16,7 +16,7 @@ export const Sidebar = () => {
         </li>
         <Link to="/archive">
           <li className="stack-list-item">
-            <i className="mr-1 fal fa-archive"></i> Archive
+            <i className="mr-1 fal fa-archive"></i>Archive
           </li>
         </Link>
 

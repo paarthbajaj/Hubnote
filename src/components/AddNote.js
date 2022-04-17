@@ -4,7 +4,20 @@ import "./NoteCard.css";
 import { useNotes } from "../context/NotesContext";
 
 export const AddNote = () => {
-  const { encodedToken, setCounter, noteContent, setNoteContent } = useNotes();
+  const {
+    encodedToken,
+    setCounter,
+    noteContent,
+    setNoteContent,
+    isPalleteOpen,
+    setIsPalleteOpen,
+    colorArr,
+    setCardColor,
+    changeCardColor,
+    selectedNote,
+    setSelectedNote,
+    updateNote,
+  } = useNotes();
   const [txtareaHeight, setTxtareaHeight] = useState(1);
 
   const addCardTitle = (e) => {
@@ -53,10 +66,27 @@ export const AddNote = () => {
       <button onClick={saveClickHandler}>Save</button>
       <i className="fal fa-thumbtack position-absolute cursor-pointer" />
       <div className="btn-container position-absolute flex-row g-1 m-radius">
+        {/* <i
+          className="fal fa-palette cursor-pointer"
+          onClick={() => setIsPalleteOpen(() => true)}
+        /> */}
         <i className="fal fa-tag cursor-pointer" />
-        <i className="fal fa-archive cursor-pointer" />
-        <i className="fal fa-trash-alt cursor-pointer" />
       </div>
+      {console.log(selectedNote)}
+      {isPalleteOpen && (
+        <div className="overlay">
+          <div className="color-pallete flex-row l-radius">
+            Choose color for the note:
+            {colorArr.map((c) => (
+              <span
+                key={c}
+                className={`color-item rounded-circle cursor-pointer bg${c}`}
+                onClick={() => changeCardColor(c)}
+              ></span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -6,6 +6,17 @@ import {
   useState,
 } from "react";
 import axios from "axios";
+const colorArr = [
+  "ffffff",
+  "f28b82",
+  "fbbc04",
+  "fff475",
+  "ccff90",
+  "a7ffeb",
+  "fdcfe8",
+  "e6c9a8",
+  "e8eaed",
+];
 
 const NotesContext = createContext();
 const useNotes = () => useContext(NotesContext);
@@ -13,11 +24,17 @@ const useNotes = () => useContext(NotesContext);
 const NotesContextProvider = ({ children }) => {
   const encodedToken = localStorage.getItem("key");
   const [notesList, setNotesList] = useState([]);
+  const [counter, setCounter] = useState(0);
+  const [selectedNote, setSelectedNote] = useState(); //need to convert these into useReducer
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPalleteOpen, setIsPalleteOpen] = useState(false);
+  const [cardColor, setCardColor] = useState("white");
   const [archivedNotesList, setAchivedNotesList] = useState([]);
   const [noteContent, setNoteContent] = useState({
     title: "",
     body: "",
     in_trash: false,
+    color: "white",
   });
   const deleteNote = async (noteItem) => {
     console.log(noteItem);
@@ -28,8 +45,6 @@ const NotesContextProvider = ({ children }) => {
         },
       });
       console.log(res);
-      // setNoteContent((note) => ({ ...note, in_trash: true }));
-
       setCounter((counter) => counter + 1);
     } catch (err) {
       console.log(err);
@@ -54,7 +69,68 @@ const NotesContextProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const [counter, setCounter] = useState(0);
+  const editNote = async (noteItem) => {
+    console.log(noteItem);
+    setIsModalOpen(() => true);
+    setSelectedNote(() => noteItem);
+  };
+  const editTitle = (e) => {
+    console.log(e.target.value);
+    console.log({ ...selectedNote, title: e.target.value });
+    setSelectedNote(() => ({ ...selectedNote, title: e.target.value }));
+  };
+  const editBody = (e) => {
+    console.log(e.target.value);
+    setSelectedNote(() => ({ ...selectedNote, body: e.target.value }));
+  };
+  const updateNote = async (e) => {
+    e.preventDefault();
+    setCounter((counter) => counter + 1);
+    setIsPalleteOpen(() => false);
+    setIsModalOpen(() => false);
+    try {
+      const updatedNoteRes = await axios.post(
+        `/api/notes/${selectedNote._id}`,
+        {
+          note: selectedNote,
+        },
+        {
+          headers: {
+            authorization: encodedToken,
+          },
+        }
+      );
+      console.log(updatedNoteRes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const changeCardColor = async (e) => {
+    console.log(e);
+    setIsPalleteOpen(() => false);
+    console.log({ ...selectedNote, color: e });
+    setSelectedNote(() => ({ ...selectedNote, color: e }));
+    setCounter((counter) => counter + 1);
+    console.log(selectedNote._id);
+    console.log(selectedNote);
+    try {
+      const updatedNoteRes = await axios.post(
+        `/api/notes/${selectedNote._id}`,
+        {
+          note: { ...selectedNote, color: e },
+        },
+        {
+          headers: {
+            authorization: encodedToken,
+          },
+        }
+      );
+      console.log("updatedNote", updatedNoteRes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -103,6 +179,20 @@ const NotesContextProvider = ({ children }) => {
         setNoteContent,
         achiveNote,
         archivedNotesList,
+        editNote,
+        isModalOpen,
+        setIsModalOpen,
+        selectedNote,
+        setSelectedNote,
+        editTitle,
+        editBody,
+        updateNote,
+        isPalleteOpen,
+        setIsPalleteOpen,
+        colorArr,
+        setCardColor,
+        cardColor,
+        changeCardColor,
       }}
     >
       {children}

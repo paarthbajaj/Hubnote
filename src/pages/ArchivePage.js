@@ -11,7 +11,10 @@ export const ArchivePage = () => {
       <div className="notes-list flex-row mt-1 pb-1 g-1">
         {archivedNotesList.archives &&
           archivedNotesList.archives.map((noteItem) => (
-            <div className="show-note m-radius" key={noteItem._id}>
+            <div
+              className={`show-note m-radius bg${noteItem.color}`}
+              key={noteItem._id}
+            >
               <h3 className="note-title">{noteItem.title}</h3>
               <div className="note-body">{noteItem.body}</div>
             </div>

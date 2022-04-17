@@ -13,6 +13,7 @@ export { ShowNote } from "./components/ShowNote";
 export { Sidebar } from "./components/Sidebar";
 export { Signin } from "./components/Signin";
 export { Signup } from "./components/Signup";
+export { ColorPallete } from "./components/ColorPalete";
 
 // Call make Server
 makeServer();
