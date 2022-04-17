@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+This is a note app which is deployed on netlify.
+https://hubnote.netlify.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Add a new note
 
-## Available Scripts
+User can add a note by entering data into the card and then click on Save. This will save the note.
 
-In the project directory, you can run:
+2. Edit & Delete Note
 
-### `yarn start`
+2.1 Edit Note
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+User can click on the edit icon which will open the same note in a popup with the textbox where user can edit a note & save it.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2.2 Delete Note
 
-### `yarn test`
+User can click on the delete icon which will delete a note.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Change Card Color
 
-### `yarn build`
+User can see various color on click of color pallete. It will change the background color of the note.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Add Label to notes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+User can click on tag or label icon in which one can enter label of the choice.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+5. Trash & Archive
 
-### `yarn eject`
+5.1 Archive Notes
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+When user click on the archive icon, it will add a note to the archive list
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5.2 Delete Notes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+User can click on a trash or delete icon to delete the note which will add a note to the trash list.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+6. Login Page
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For now user can login via guest only.
