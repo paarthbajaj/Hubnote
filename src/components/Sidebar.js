@@ -6,7 +6,7 @@ export const Sidebar = () => {
   return (
     <aside className="sidebar">
       <ul>
-        <Link to="/">
+        <Link to="/home">
           <li className="stack-list-item">
             <i className="mr-1 fal fa-house"></i>Home
           </li>

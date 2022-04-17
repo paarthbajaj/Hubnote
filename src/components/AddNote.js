@@ -35,7 +35,7 @@ export const AddNote = () => {
       const noteRes = await axios.post(
         "/api/notes",
         {
-          note: noteContent,
+          note: { ...noteContent, createdAt: new Date().toLocaleString() },
         },
         {
           headers: {
@@ -65,13 +65,6 @@ export const AddNote = () => {
       ></textarea>
       <button onClick={saveClickHandler}>Save</button>
       <i className="fal fa-thumbtack position-absolute cursor-pointer" />
-      <div className="btn-container position-absolute flex-row g-1 m-radius">
-        {/* <i
-          className="fal fa-palette cursor-pointer"
-          onClick={() => setIsPalleteOpen(() => true)}
-        /> */}
-        <i className="fal fa-tag cursor-pointer" />
-      </div>
       {console.log(selectedNote)}
       {isPalleteOpen && (
         <div className="overlay">

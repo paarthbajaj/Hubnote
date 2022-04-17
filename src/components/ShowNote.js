@@ -17,12 +17,13 @@ export const ShowNote = () => {
     setIsPalleteOpen,
     colorArr,
     cardColor,
+    setIsTagPopupOpen,
+    setCounter,
   } = useNotes();
 
   return (
     <>
       <div className="notes-list flex-row mt-1 pb-1 g-1">
-        {console.log(notesList)}
         {notesList.notes &&
           notesList.notes.map((noteItem) => (
             <div
@@ -31,6 +32,9 @@ export const ShowNote = () => {
             >
               <h3 className="note-title">{noteItem.title}</h3>
               <div className="note-body">{noteItem.body}</div>
+              {noteItem.tags.length > 0 && (
+                <span className="note-label l-radius">{noteItem.tags[0]}</span>
+              )}
               <div className="btn-container position-absolute flex-row g-1 m-radius">
                 <i
                   className="fal fa-palette cursor-pointer"
@@ -43,7 +47,14 @@ export const ShowNote = () => {
                   className="fal fa-edit cursor-pointer"
                   onClick={() => editNote(noteItem)}
                 />
-                <i className="fal fa-tag cursor-pointer" />
+                <i
+                  className="fal fa-tag cursor-pointer"
+                  onClick={() => {
+                    setIsTagPopupOpen(() => true);
+                    setSelectedNote(() => noteItem);
+                    // setCounter((counter) => counter + 1);
+                  }}
+                />
                 <i
                   className="fal fa-archive cursor-pointer"
                   onClick={() => achiveNote(noteItem)}
@@ -60,7 +71,6 @@ export const ShowNote = () => {
       {isModalOpen == true ? (
         <div className="overlay flex-column align-center justify-center">
           <div className="edit-note-container m-radius">
-            {console.log(selectedNote)}
             <form className="flex-column">
               <input
                 className="card-input"

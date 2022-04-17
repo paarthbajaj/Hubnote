@@ -28,6 +28,7 @@ const NotesContextProvider = ({ children }) => {
   const [selectedNote, setSelectedNote] = useState(); //need to convert these into useReducer
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPalleteOpen, setIsPalleteOpen] = useState(false);
+  const [isTagPopupOpen, setIsTagPopupOpen] = useState(false);
   const [cardColor, setCardColor] = useState("white");
   const [archivedNotesList, setAchivedNotesList] = useState([]);
   const [noteContent, setNoteContent] = useState({
@@ -35,6 +36,8 @@ const NotesContextProvider = ({ children }) => {
     body: "",
     in_trash: false,
     color: "white",
+    createdAt: "",
+    tags: [],
   });
   const deleteNote = async (noteItem) => {
     console.log(noteItem);
@@ -63,7 +66,6 @@ const NotesContextProvider = ({ children }) => {
           },
         }
       );
-      console.log("archived", res);
       setCounter((counter) => counter + 1);
     } catch (err) {
       console.log(err);
@@ -75,12 +77,9 @@ const NotesContextProvider = ({ children }) => {
     setSelectedNote(() => noteItem);
   };
   const editTitle = (e) => {
-    console.log(e.target.value);
-    console.log({ ...selectedNote, title: e.target.value });
     setSelectedNote(() => ({ ...selectedNote, title: e.target.value }));
   };
   const editBody = (e) => {
-    console.log(e.target.value);
     setSelectedNote(() => ({ ...selectedNote, body: e.target.value }));
   };
   const updateNote = async (e) => {
@@ -100,19 +99,14 @@ const NotesContextProvider = ({ children }) => {
           },
         }
       );
-      console.log(updatedNoteRes);
     } catch (err) {
       console.log(err);
     }
   };
   const changeCardColor = async (e) => {
-    console.log(e);
     setIsPalleteOpen(() => false);
-    console.log({ ...selectedNote, color: e });
     setSelectedNote(() => ({ ...selectedNote, color: e }));
     setCounter((counter) => counter + 1);
-    console.log(selectedNote._id);
-    console.log(selectedNote);
     try {
       const updatedNoteRes = await axios.post(
         `/api/notes/${selectedNote._id}`,
@@ -125,12 +119,49 @@ const NotesContextProvider = ({ children }) => {
           },
         }
       );
-      console.log("updatedNote", updatedNoteRes);
     } catch (err) {
       console.log(err);
     }
   };
-
+  const editLabel = (e) => {
+    console.log({
+      ...selectedNote,
+      tags: [e.target.value],
+    });
+    setSelectedNote(() => ({
+      ...selectedNote,
+      tags: [e.target.value],
+    }));
+  };
+  const addMultiLabel = (e) => {
+    console.log(e.target.value);
+    console.log(e.target.checked);
+    setCounter((counter) => counter + 1);
+    console.log({
+      ...selectedNote,
+      tags: [...selectedNote.tags.concat(e.target.value)],
+    });
+  };
+  const addLabel = async (e) => {
+    e.preventDefault();
+    setIsTagPopupOpen(() => false);
+    setCounter((counter) => counter + 1); //need to reduce update api code repetition
+    try {
+      const updatedNoteRes = await axios.post(
+        `/api/notes/${selectedNote._id}`,
+        {
+          note: selectedNote,
+        },
+        {
+          headers: {
+            authorization: encodedToken,
+          },
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -193,6 +224,11 @@ const NotesContextProvider = ({ children }) => {
         setCardColor,
         cardColor,
         changeCardColor,
+        isTagPopupOpen,
+        setIsTagPopupOpen,
+        editLabel,
+        addLabel,
+        addMultiLabel,
       }}
     >
       {children}

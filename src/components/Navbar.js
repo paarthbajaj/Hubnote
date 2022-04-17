@@ -9,7 +9,7 @@ export const Navbar = () => {
         <a className="logo black-border rounded-circle" href="index.html">
           HubNote
         </a>
-        <Link to="/signin">Login</Link>
+        <Link to="/">Login</Link>
       </nav>
     </header>
   );
