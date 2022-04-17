@@ -11,6 +11,7 @@
   padding: 0.5rem 0.5rem 2rem;
   box-shadow: 3px 3px 5px rgb(0 0 0 / 30%);
   width: 250px;
+  align-self: flex-start;
 }
 .show-note div:nth-child(1),
 .show-note div:nth-child(2) {
@@ -40,4 +41,66 @@
   bottom: 4px;
   right: 4px;
   justify-content: end;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+.edit-note-container {
+  background: var(--white);
+  /* position: absolute; */
+  /* width: 50%; */
+  padding: 0.5rem 0.5rem 2rem;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+}
+.color-pallete {
+  background-color: var(--white);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 4px;
+  width: 19%;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+}
+.color-item {
+  height: 30px;
+  width: 30px;
+  border: 1px solid var(--grey-2);
+}
+.bgffffff {
+  background-color: #ffffff;
+}
+.bgf28b82 {
+  background-color: #f28b82;
+}
+.bgfbbc04 {
+  background-color: #fbbc04;
+}
+.bgfff475 {
+  background-color: #fff475;
+}
+.bgccff90 {
+  background-color: #ccff90;
+}
+.bga7ffeb {
+  background-color: #a7ffeb;
+}
+.bgfdcfe8 {
+  background-color: #fdcfe8;
+}
+.bge6c9a8 {
+  background-color: #e6c9a8;
+}
+.bge8eaed {
+  background-color: #e8eaed;
 }
