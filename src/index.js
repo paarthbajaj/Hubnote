@@ -14,6 +14,7 @@ export { Sidebar } from "./components/Sidebar";
 export { Signin } from "./components/Signin";
 export { Signup } from "./components/Signup";
 export { ColorPallete } from "./components/ColorPalete";
+export { TagsPopup } from "./components/TagsPopup";
 
 // Call make Server
 makeServer();

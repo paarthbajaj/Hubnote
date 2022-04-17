@@ -51,7 +51,7 @@ export const Signin = () => {
             Sign In
           </button>
         </Link>
-        <Link to="/">
+        <Link to="/home">
           <span onClick={signinHandler}>Sign In As Guest</span>
         </Link>
         <span className="or-divider">OR</span>
