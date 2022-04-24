@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import axios from "axios";
 import "./NoteCard.css";
 import { useNotes } from "../context/NotesContext";
@@ -7,35 +7,24 @@ export const AddNote = () => {
   const {
     encodedToken,
     setCounter,
-    noteContent,
-    setNoteContent,
-    isPalleteOpen,
-    setIsPalleteOpen,
     colorArr,
-    setCardColor,
     changeCardColor,
     selectedNote,
-    setSelectedNote,
-    updateNote,
+    noteDispatch,
+    noteState,
+    notePropState,
   } = useNotes();
   const [txtareaHeight, setTxtareaHeight] = useState(1);
 
-  const addCardTitle = (e) => {
-    setNoteContent((i) => ({ ...i, title: e.target.value }));
-  };
-  const addCardBody = (e) => {
-    setNoteContent((i) => ({ ...i, body: e.target.value }));
-    setTxtareaHeight(e.target.value.length / 50 + 2);
-  };
   const saveClickHandler = async () => {
-    setNoteContent((i) => ({ ...i, title: "", body: "" }));
+    noteDispatch({ type: "CLEAR_NOTE" });
     setTxtareaHeight(() => 1);
     setCounter((counter) => counter + 1);
     try {
       const noteRes = await axios.post(
         "/api/notes",
         {
-          note: { ...noteContent, createdAt: new Date().toLocaleString() },
+          note: { ...noteState, createdAt: new Date().toLocaleString() },
         },
         {
           headers: {
@@ -53,20 +42,28 @@ export const AddNote = () => {
         className="card-input"
         type="text"
         placeholder="Title"
-        value={noteContent.title}
-        onChange={addCardTitle}
+        value={noteState.title}
+        onChange={(e) =>
+          noteDispatch({ type: "EDIT_TITLE", payload: e.target.value })
+        }
       />
       <textarea
         className="card-input ok"
         placeholder="Take a note"
         rows={txtareaHeight}
-        value={noteContent.body}
-        onChange={addCardBody}
+        value={noteState.body}
+        onChange={(e) => {
+          noteDispatch({ type: "EDIT_BODY", payload: e.target.value });
+          setTxtareaHeight(e.target.value.length / 50 + 2);
+        }}
       ></textarea>
-      <button onClick={saveClickHandler}>Save</button>
+      <div className="btn-box position-absolute">
+        <button className="app-pri-btn" onClick={saveClickHandler}>
+          Save
+        </button>
+      </div>
       <i className="fal fa-thumbtack position-absolute cursor-pointer" />
-      {console.log(selectedNote)}
-      {isPalleteOpen && (
+      {notePropState?.isPalleteOpen && (
         <div className="overlay">
           <div className="color-pallete flex-row l-radius">
             Choose color for the note:

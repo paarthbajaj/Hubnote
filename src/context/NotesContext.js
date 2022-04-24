@@ -25,11 +25,9 @@ const NotesContextProvider = ({ children }) => {
   const encodedToken = localStorage.getItem("key");
   const [notesList, setNotesList] = useState([]);
   const [counter, setCounter] = useState(0);
-  const [selectedNote, setSelectedNote] = useState(); //need to convert these into useReducer
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPalleteOpen, setIsPalleteOpen] = useState(false);
-  const [isTagPopupOpen, setIsTagPopupOpen] = useState(false);
+  const [selectedNote, setSelectedNote] = useState();
   const [cardColor, setCardColor] = useState("white");
+  const [listOfLabel, setListOfLabel] = useState([]);
   const [archivedNotesList, setAchivedNotesList] = useState([]);
   const [noteContent, setNoteContent] = useState({
     title: "",
@@ -40,14 +38,12 @@ const NotesContextProvider = ({ children }) => {
     tags: [],
   });
   const deleteNote = async (noteItem) => {
-    console.log(noteItem);
     try {
       const res = await axios.delete(`/api/notes/${noteItem._id}`, {
         headers: {
           authorization: encodedToken,
         },
       });
-      console.log(res);
       setCounter((counter) => counter + 1);
     } catch (err) {
       console.log(err);
@@ -71,22 +67,10 @@ const NotesContextProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const editNote = async (noteItem) => {
-    console.log(noteItem);
-    setIsModalOpen(() => true);
-    setSelectedNote(() => noteItem);
-  };
-  const editTitle = (e) => {
-    setSelectedNote(() => ({ ...selectedNote, title: e.target.value }));
-  };
-  const editBody = (e) => {
-    setSelectedNote(() => ({ ...selectedNote, body: e.target.value }));
-  };
   const updateNote = async (e) => {
     e.preventDefault();
     setCounter((counter) => counter + 1);
-    setIsPalleteOpen(() => false);
-    setIsModalOpen(() => false);
+    notePropDispatch({ type: "CLOSE_MODAL" });
     try {
       const updatedNoteRes = await axios.post(
         `/api/notes/${selectedNote._id}`,
@@ -104,7 +88,7 @@ const NotesContextProvider = ({ children }) => {
     }
   };
   const changeCardColor = async (e) => {
-    setIsPalleteOpen(() => false);
+    notePropDispatch({ type: "CLOSE_PALLETE" });
     setSelectedNote(() => ({ ...selectedNote, color: e }));
     setCounter((counter) => counter + 1);
     try {
@@ -123,29 +107,55 @@ const NotesContextProvider = ({ children }) => {
       console.log(err);
     }
   };
-  const editLabel = (e) => {
-    console.log({
-      ...selectedNote,
-      tags: [e.target.value],
-    });
-    setSelectedNote(() => ({
-      ...selectedNote,
-      tags: [e.target.value],
-    }));
-  };
-  const addMultiLabel = (e) => {
-    console.log(e.target.value);
-    console.log(e.target.checked);
+  const addMultiLabel = async (e) => {
     setCounter((counter) => counter + 1);
-    console.log({
-      ...selectedNote,
-      tags: [...selectedNote.tags.concat(e.target.value)],
-    });
+    let flag = notesList.notes.filter((i) => i._id == selectedNote._id);
+    if (e.target.checked == true) {
+      try {
+        const updatedNoteRes = await axios.post(
+          `/api/notes/${selectedNote._id}`,
+          {
+            note: {
+              ...flag[0],
+              tags: [...flag[0].tags.concat(e.target.value)],
+            },
+          },
+          {
+            headers: {
+              authorization: encodedToken,
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("nothing");
+      try {
+        const updatedNoteRes = await axios.post(
+          `/api/notes/${selectedNote._id}`,
+          {
+            note: {
+              ...flag[0],
+              tags: [...flag[0].tags.filter((i) => i !== e.target.value)],
+            },
+          },
+          {
+            headers: {
+              authorization: encodedToken,
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
   const addLabel = async (e) => {
     e.preventDefault();
-    setIsTagPopupOpen(() => false);
-    setCounter((counter) => counter + 1); //need to reduce update api code repetition
+    notePropDispatch({ type: "CLOSE_TAG_POPUP" });
+    setListOfLabel(() => listOfLabel.concat(notePropState.label));
+    setCounter((counter) => counter + 1);
     try {
       const updatedNoteRes = await axios.post(
         `/api/notes/${selectedNote._id}`,
@@ -171,7 +181,7 @@ const NotesContextProvider = ({ children }) => {
           },
         });
         setNotesList(() => noteData.data);
-        console.log(noteData);
+        notePropDispatch({ type: "ADD_NOTE", payload: noteData.data });
       } catch (err) {
         console.log(err);
       }
@@ -184,19 +194,58 @@ const NotesContextProvider = ({ children }) => {
           },
         });
         setAchivedNotesList(() => archivedNoteData.data);
-        console.log(archivedNoteData);
       } catch (err) {
         console.log(err);
       }
     })();
   }, [counter]);
   const notesReducer = (state, action) => {
-    console.log({ ...state });
+    switch (action.type) {
+      case "DELETE_NOTE":
+        return { ...state };
+      case "EDIT_TITLE":
+        return { ...state, title: action.payload };
+      case "EDIT_BODY":
+        return { ...state, body: action.payload };
+      case "CLEAR_NOTE":
+        return { ...state, title: "", body: "" };
+    }
+  };
+  const notePropReducer = (state, action) => {
+    switch (action.type) {
+      case "INC_COUNTER":
+        return { ...state, counter4: state.counter4 + 1 };
+      case "OPEN_MODAL":
+        return { ...state, isModalOpen: true };
+      case "CLOSE_MODAL":
+        return { ...state, isModalOpen: false };
+      case "OPEN_PALLETE":
+        return { ...state, isPalleteOpen: true };
+      case "CLOSE_PALLETE":
+        return { ...state, isPalleteOpen: false };
+      case "SELECTED_NOTE":
+        return { ...state, selectedNote4: action.payload };
+      case "SET_LABEL":
+        return { ...state, label: action.payload };
+      case "OPEN_TAG_POPUP":
+        return { ...state, isTagPopupOpen: true };
+      case "CLOSE_TAG_POPUP":
+        return { ...state, isTagPopupOpen: false };
+    }
   };
   const [noteState, noteDispatch] = useReducer(notesReducer, {
-    notes: [],
-    archived: [],
-    singleNote: { title: "", body: "" },
+    title: "",
+    body: "",
+    in_trash: false,
+    color: "white",
+    createdAt: "",
+    tags: [],
+  });
+  const [notePropState, notePropDispatch] = useReducer(notePropReducer, {
+    isModalOpen: false,
+    isPalleteOpen: false,
+    isTagPopupOpen: false,
+    label: "",
   });
   return (
     <NotesContext.Provider
@@ -210,25 +259,19 @@ const NotesContextProvider = ({ children }) => {
         setNoteContent,
         achiveNote,
         archivedNotesList,
-        editNote,
-        isModalOpen,
-        setIsModalOpen,
         selectedNote,
         setSelectedNote,
-        editTitle,
-        editBody,
         updateNote,
-        isPalleteOpen,
-        setIsPalleteOpen,
         colorArr,
         setCardColor,
         cardColor,
         changeCardColor,
-        isTagPopupOpen,
-        setIsTagPopupOpen,
-        editLabel,
         addLabel,
         addMultiLabel,
+        listOfLabel,
+        noteState,
+        notePropState,
+        notePropDispatch,
       }}
     >
       {children}

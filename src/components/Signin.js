@@ -1,16 +1,10 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Auth.css";
-import { users } from "../backend/db/users";
+import { useAuth } from "../context/AuthContext";
 
 export const Signin = () => {
-  const signinHandler = async () => {
-    const data = await axios.post("/api/auth/login", {
-      email: users[0].email,
-      password: users[0].password,
-    });
-    localStorage.setItem("key", data.data.encodedToken);
-  };
+  const { signinAsGuestHandler, signinHandler, authDispatch } = useAuth();
   return (
     <div className="signin-page">
       <img
@@ -30,6 +24,9 @@ export const Signin = () => {
             type="email"
             placeholder="Email"
             required
+            onChange={(e) =>
+              authDispatch({ type: "EDIT_EMAIL", payload: e.target.value })
+            }
           />
           <span className="error">Please enter your email</span>
         </label>
@@ -40,19 +37,22 @@ export const Signin = () => {
             placeholder="Password"
             pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
             required
+            onChange={(e) =>
+              authDispatch({ type: "EDIT_PASSWORD", payload: e.target.value })
+            }
           />
           <span className="error">
             Password must contain eight characters, at least one letter, one
             number and one special character
           </span>
         </label>
-        <Link to="/">
-          <button className="app-pri-btn" type="submit">
+        <Link to="/home">
+          <button className="app-pri-btn" type="submit" onClick={signinHandler}>
             Sign In
           </button>
         </Link>
         <Link to="/home">
-          <span onClick={signinHandler}>Sign In As Guest</span>
+          <span onClick={signinAsGuestHandler}>Sign In As Guest</span>
         </Link>
         <span className="or-divider">OR</span>
         <Link to="/signup">

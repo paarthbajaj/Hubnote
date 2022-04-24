@@ -37,10 +37,9 @@
   top: 4px;
   right: 4px;
 }
-.btn-container {
+.btn-box {
   bottom: 4px;
   right: 4px;
-  justify-content: end;
 }
 .overlay {
   position: fixed;
@@ -88,6 +87,7 @@
   font-size: small;
   background-color: var(--grey-2);
   padding: 2px 6px;
+  margin-right: 4px;
 }
 .inp-subtext {
   font-size: x-small;
