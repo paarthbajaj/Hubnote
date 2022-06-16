@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { makeServer } from "./server";
 import { NotesContextProvider } from "./context/NotesContext";
+import { AuthContextProvider } from "./context/AuthContext";
 
 export { AddNote } from "./components/AddNote";
 export { Navbar } from "./components/Navbar";
@@ -22,9 +23,11 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <NotesContextProvider>
-        <App />
-      </NotesContextProvider>
+      <AuthContextProvider>
+        <NotesContextProvider>
+          <App />
+        </NotesContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

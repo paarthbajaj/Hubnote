@@ -3,12 +3,14 @@ import "./NoteCard.css";
 
 export const TagsPopup = () => {
   const {
-    isTagPopupOpen,
-    setIsTagPopupOpen,
-    editLabel,
     addLabel,
     notesList,
     addMultiLabel,
+    listOfLabel,
+    selectedNote,
+    notePropDispatch,
+    notePropState,
+    setSelectedNote,
   } = useNotes();
   let labelList = [];
   (() => {
@@ -18,7 +20,7 @@ export const TagsPopup = () => {
   })();
   return (
     <>
-      {isTagPopupOpen && (
+      {notePropState?.isTagPopupOpen && (
         <div className="overlay">
           <div className="add-tag flex-column l-radius">
             Add Label{" "}
@@ -26,12 +28,21 @@ export const TagsPopup = () => {
               <input
                 placeholder="Enter label name"
                 className="card-input"
-                onChange={editLabel}
+                onChange={(e) => {
+                  setSelectedNote(() => ({
+                    ...selectedNote,
+                    tags: [e.target.value],
+                  }));
+                  notePropDispatch({
+                    type: "SET_LABEL",
+                    payload: e.target.value,
+                  });
+                }}
               />
               <div className="inp-subtext">Press enter to add the label ↵</div>
             </form>
-            {labelList?.length > 0 &&
-              labelList.map((i) => (
+            {listOfLabel?.length > 0 &&
+              listOfLabel.map((i) => (
                 <label key={i}>
                   <input
                     type="checkbox"
@@ -45,7 +56,7 @@ export const TagsPopup = () => {
               ))}
             <i
               className="fal fa-times close-btn position-absolute cursor-pointer"
-              onClick={() => setIsTagPopupOpen(() => false)}
+              onClick={() => notePropDispatch({ type: "CLOSE_TAG_POPUP" })}
             />
           </div>
         </div>

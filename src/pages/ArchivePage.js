@@ -6,7 +6,6 @@ export const ArchivePage = () => {
 
   return (
     <div className="app-container archive-page pt-1">
-      {console.log(archivedNotesList)}
       <Sidebar />
       <div className="notes-list flex-row mt-1 pb-1 g-1">
         {archivedNotesList.archives &&
