@@ -62,7 +62,6 @@ export const AddNote = () => {
           Save
         </button>
       </div>
-      <i className="fal fa-thumbtack position-absolute cursor-pointer" />
       {notePropState?.isPalleteOpen && (
         <div className="overlay">
           <div className="color-pallete flex-row l-radius">

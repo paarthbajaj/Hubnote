@@ -181,7 +181,6 @@ const NotesContextProvider = ({ children }) => {
           },
         });
         setNotesList(() => noteData.data);
-        notePropDispatch({ type: "ADD_NOTE", payload: noteData.data });
       } catch (err) {
         console.log(err);
       }

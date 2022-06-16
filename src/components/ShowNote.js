@@ -26,7 +26,9 @@ export const ShowNote = () => {
               <div className="note-body">{noteItem.body}</div>
               {noteItem.tags.length > 0 &&
                 noteItem.tags.map((labelName) => (
-                  <span className="note-label l-radius">{labelName}</span>
+                  <span className="note-label l-radius" key={labelName}>
+                    {labelName}
+                  </span>
                 ))}
               <div className="btn-box position-absolute flex-row g-1 m-radius">
                 <i
