@@ -12,12 +12,16 @@ export const ShowNote = () => {
     notePropDispatch,
     notePropState,
   } = useNotes();
+  let notesArray =
+    notePropState.searchValue == ""
+      ? notesList.notes
+      : notePropState.searchResult;
 
   return (
     <>
       <div className="notes-list flex-row mt-1 pb-1 g-1">
-        {notesList.notes &&
-          notesList.notes.map((noteItem) => (
+        {notesArray?.length > 0 ? (
+          notesArray?.map((noteItem) => (
             <div
               className={`show-note m-radius bg${noteItem.color}`}
               key={noteItem._id}
@@ -63,7 +67,17 @@ export const ShowNote = () => {
                 />
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className="info-message">
+            {notePropState.searchResult?.length == 0 &&
+            notePropState.searchValue !== "" ? (
+              <span>No notes found for the given search result</span>
+            ) : (
+              <span>Start adding notes!</span>
+            )}
+          </div>
+        )}
       </div>
 
       {notePropState?.isModalOpen == true ? (

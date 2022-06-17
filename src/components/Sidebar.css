@@ -4,3 +4,13 @@
 .stack-list-item {
   border: 0;
 }
+@media only screen and (max-width: 450px) {
+  .sidebar ul {
+    /* width: 100%; */
+    display: flex;
+  }
+  .stack-list-item {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -57,6 +57,16 @@
 }
 .App {
   background: #ebebeb;
-  min-height: 90vh;
+}
+@media only screen and (max-width: 450px) {
+  .home-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .app-container {
+    margin: 3rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+  }
 }
 @import url(https://patched-ui.netlify.app/utility-classes.css);

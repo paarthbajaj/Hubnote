@@ -11,23 +11,23 @@ export const Sidebar = () => {
             <i className="mr-1 fal fa-house"></i>Home
           </li>
         </Link>
-        <li className="stack-list-item">
+        {/* <li className="stack-list-item">
           <i className="mr-1 fal fa-tag"></i>Labels
-        </li>
+        </li> */}
         <Link to="/archive">
           <li className="stack-list-item">
             <i className="mr-1 fal fa-archive"></i>Archive
           </li>
         </Link>
 
-        <Link to="/trash">
+        {/* <Link to="/trash">
           <li className="stack-list-item">
             <i className="mr-1 fal fa-trash-alt"></i>Trash
           </li>
-        </Link>
-        <li className="stack-list-item">
+        </Link> */}
+        {/* <li className="stack-list-item">
           <i className="mr-1 fal fa-user-circle"></i>Profile
-        </li>
+        </li> */}
       </ul>
     </aside>
   );

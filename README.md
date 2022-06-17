@@ -31,8 +31,8 @@ When user click on the archive icon, it will add a note to the archive list
 
 5.2 Delete Notes
 
-User can click on a trash or delete icon to delete the note which will add a note to the trash list.
+User can click on a trash or delete icon to delete the note which will add a note to the trash.
 
 6. Login Page
 
-For now user can login via guest only.
+User have the option to signin and signout.

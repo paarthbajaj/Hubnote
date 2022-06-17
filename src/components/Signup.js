@@ -2,7 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import "./Auth.css";
 export const Signup = () => {
-  const { authDispatch, signupClickHandler } = useAuth();
+  const { authDispatch, signupClickHandler, authState } = useAuth();
   return (
     <div className="signin-page">
       <img
@@ -10,11 +10,12 @@ export const Signup = () => {
         src="/assets/images/Notes-Image.svg"
         alt="notes-image"
       />
-      <h1 className="txt-center">Sign Up to HubNote</h1>
+
       <form className="auth-form flex-column g-1 align-center justify-center">
+        <h1 className="txt-center">Sign Up to HubNote</h1>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="text"
             placeholder="Name"
             required
@@ -26,7 +27,7 @@ export const Signup = () => {
         </label>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="email"
             placeholder="Email"
             required
@@ -38,7 +39,7 @@ export const Signup = () => {
         </label>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="password"
             placeholder="Password"
             pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
@@ -54,10 +55,9 @@ export const Signup = () => {
         </label>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="password"
             placeholder="Confirm Password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
             required
             onChange={(e) =>
               authDispatch({
@@ -74,7 +74,16 @@ export const Signup = () => {
         <button
           className="app-pri-btn cursor-pointer"
           type="submit"
-          onClick={signupClickHandler}
+          onClick={() =>
+            authState.name !== "" ||
+            authState.email !== "" ||
+            authState.password !== "" ||
+            authState.confirm_password !== "" ? (
+              signupClickHandler()
+            ) : (
+              <></>
+            )
+          }
         >
           Sign Up
         </button>

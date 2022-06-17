@@ -230,6 +230,12 @@ const NotesContextProvider = ({ children }) => {
         return { ...state, isTagPopupOpen: true };
       case "CLOSE_TAG_POPUP":
         return { ...state, isTagPopupOpen: false };
+      case "SET_SEARCH":
+        return {
+          ...state,
+          searchValue: action.payload.value,
+          searchResult: action.payload.result,
+        };
     }
   };
   const [noteState, noteDispatch] = useReducer(notesReducer, {
@@ -245,6 +251,8 @@ const NotesContextProvider = ({ children }) => {
     isPalleteOpen: false,
     isTagPopupOpen: false,
     label: "",
+    searchValue: "",
+    searchResult: [],
   });
   return (
     <NotesContext.Provider
