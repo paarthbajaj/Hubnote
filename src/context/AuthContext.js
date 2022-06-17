@@ -36,6 +36,7 @@ const AuthContextProvider = ({ children }) => {
       password: authState.password,
     });
     localStorage.setItem("key", data.data.encodedToken);
+    navigate("/home");
   };
   const authReducer = (state, action) => {
     switch (action.type) {

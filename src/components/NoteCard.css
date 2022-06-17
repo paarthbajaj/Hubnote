@@ -93,6 +93,9 @@
   font-size: x-small;
   color: var(--light-gray);
 }
+.info-message {
+  margin: 0 auto;
+}
 .bgffffff {
   background-color: #ffffff;
 }
@@ -119,4 +122,19 @@
 }
 .bge8eaed {
   background-color: #e8eaed;
+}
+
+@media only screen and (max-width: 450px) {
+  .notes-list {
+    margin-top: 2rem;
+  }
+  .note-card {
+    width: 92%;
+    padding-bottom: 2rem;
+    padding: 1rem;
+  }
+  .show-note {
+    width: 92%;
+    margin: 0 auto;
+  }
 }

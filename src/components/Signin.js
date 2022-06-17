@@ -4,7 +4,8 @@ import "./Auth.css";
 import { useAuth } from "../context/AuthContext";
 
 export const Signin = () => {
-  const { signinAsGuestHandler, signinHandler, authDispatch } = useAuth();
+  const { signinAsGuestHandler, signinHandler, authDispatch, authState } =
+    useAuth();
   return (
     <div className="signin-page">
       <img
@@ -12,15 +13,11 @@ export const Signin = () => {
         src="/assets/images/addNotes.svg"
         alt="notes-image"
       />
-      <h1 className="txt-center">Login to your account</h1>
-      <h2 style={{ color: "red", textAlign: "center" }}>
-        Please click on signin as guest, as signin and signup are not working
-        yet
-      </h2>
       <form className="auth-form flex-column g-1 align-center justify-center">
+        <h1 className="txt-center">Login to your account</h1>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="email"
             placeholder="Email"
             required
@@ -32,10 +29,9 @@ export const Signin = () => {
         </label>
         <label className="log-input">
           <input
-            className="input log-input req-input"
+            className="input log-input"
             type="password"
             placeholder="Password"
-            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
             required
             onChange={(e) =>
               authDispatch({ type: "EDIT_PASSWORD", payload: e.target.value })
@@ -46,11 +42,19 @@ export const Signin = () => {
             number and one special character
           </span>
         </label>
-        <Link to="/home">
-          <button className="app-pri-btn" type="submit" onClick={signinHandler}>
-            Sign In
-          </button>
-        </Link>
+        <button
+          className="app-pri-btn"
+          type="submit"
+          onClick={() =>
+            authState.email !== "" || authState.password !== "" ? (
+              signinHandler()
+            ) : (
+              <></>
+            )
+          }
+        >
+          Sign In
+        </button>
         <Link to="/home">
           <span onClick={signinAsGuestHandler}>Sign In As Guest</span>
         </Link>

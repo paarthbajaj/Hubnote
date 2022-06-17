@@ -17,3 +17,9 @@
 .fa-search {
   padding: 10px 4px;
 }
+@media only screen and (max-width: 450px) {
+  .searchbar {
+    width: 92%;
+    margin: 0.7rem auto 1rem;
+  }
+}
