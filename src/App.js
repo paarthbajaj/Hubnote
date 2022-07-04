@@ -8,11 +8,13 @@ import { Navbar, Signin, Signup } from "../src/index";
 import MockmanEs from "mockman-js";
 import { TrashPage } from "./pages/TrashPage";
 import { ArchivePage } from "./pages/ArchivePage";
+import { Toast } from "./components/Toast";
 
 function App() {
   return (
     <div className="App">
       <Navbar />
+      <Toast />
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/" element={<Signin />} />

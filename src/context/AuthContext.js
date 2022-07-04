@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { users } from "../backend/db/users";
 
@@ -7,10 +7,13 @@ const AuthContext = createContext();
 const useAuth = () => useContext(AuthContext);
 
 const AuthContextProvider = ({ children }) => {
+  const [toast, setToast] = useState({
+    showToast: true,
+    type: "",
+    message: "",
+  });
   let navigate = useNavigate();
-  const signupClickHandler = async (e) => {
-    e.preventDefault();
-    navigate("/home");
+  const signupClickHandler = async () => {
     try {
       const signupApiRes = await axios.post("/api/auth/signup", {
         email: authState.email,
@@ -19,6 +22,7 @@ const AuthContextProvider = ({ children }) => {
         confirm_password: authState.confirm_password,
       });
       localStorage.setItem("key", signupApiRes.data.encodedToken);
+      navigate("/home");
     } catch (err) {
       console.log(err);
     }
@@ -65,6 +69,8 @@ const AuthContextProvider = ({ children }) => {
         navigate,
         signinAsGuestHandler,
         signinHandler,
+        toast,
+        setToast,
       }}
     >
       {children}
