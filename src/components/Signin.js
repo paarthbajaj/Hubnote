@@ -2,10 +2,21 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Auth.css";
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 export const Signin = () => {
-  const { signinAsGuestHandler, signinHandler, authDispatch, authState } =
-    useAuth();
+  const {
+    signinAsGuestHandler,
+    signinHandler,
+    authDispatch,
+    authState,
+    toast,
+    setToast,
+  } = useAuth();
+  useEffect(() => {
+    authDispatch({ type: "EDIT_EMAIL", payload: "" });
+    authDispatch({ type: "EDIT_PASSWORD", payload: "" });
+  }, []);
   return (
     <div className="signin-page">
       <img
@@ -43,15 +54,18 @@ export const Signin = () => {
           </span>
         </label>
         <button
-          className="app-pri-btn"
+          className="app-pri-btn cursor-pointer"
           type="submit"
-          onClick={() =>
-            authState.email !== "" || authState.password !== "" ? (
-              signinHandler()
-            ) : (
-              <></>
-            )
-          }
+          onClick={() => {
+            authState.email == "" || authState.password == ""
+              ? setToast({
+                  ...toast,
+                  showToast: true,
+                  type: "alert-warning",
+                  message: "Please fill the fields",
+                })
+              : signinHandler();
+          }}
         >
           Sign In
         </button>
