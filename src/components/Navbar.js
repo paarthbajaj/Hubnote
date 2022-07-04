@@ -7,9 +7,9 @@ export const Navbar = () => {
   return (
     <header className="app-header">
       <nav className="navbar bg-white flex-row align-center">
-        <a className="logo black-border rounded-circle" href="index.html">
+        <Link to="/home" className="logo black-border rounded-circle">
           HubNote
-        </a>
+        </Link>
         <Link to="/">
           {location.pathname == "/" || location.pathname == "/signup" ? (
             <span>Login</span>
